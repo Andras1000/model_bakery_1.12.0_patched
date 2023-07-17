@@ -17,6 +17,7 @@ from django import VERSION as DJANGO_VERSION
 from django.apps import apps
 from django.conf import settings
 from django.contrib import contenttypes
+from django.contrib.contenttypes.fields import GenericForeignKey
 from django.db.models import (
     AutoField,
     BooleanField,
@@ -568,7 +569,7 @@ class Baker(Generic[M]):
         if isinstance(field, OneToOneField) and self._remote_field(field).parent_link:
             return True
 
-        if isinstance(field, (AutoField, GenericRelation, OrderWrt)):
+        if isinstance(field, (AutoField, GenericForeignKey, GenericRelation, OrderWrt)):
             return True
 
         if all(
